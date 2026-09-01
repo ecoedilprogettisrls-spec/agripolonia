@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi Siamo – Agripolonia | Vivaio Autorizzato Puglia</title>
+  <meta name="description" content="Agripolonia nasce dalla precedente cooperativa agricola (2013). Vivaio autorizzato dalla Regione Puglia con passaporto fitosanitario, specializzato in Fico d'India e piante succulente con coltivazione biologica e naturale." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 16px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--olive-light), var(--orange));
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 48px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -32px; top: 4px;
+      width: 18px; height: 18px;
+      background: var(--gradient-warm);
+      border-radius: 50%;
+      border: 3px solid var(--cream);
+      box-shadow: 0 0 0 3px var(--orange);
+    }
+    .timeline-year {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--olive-dark);
+      margin-bottom: 8px;
+    }
+    .timeline-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── Structure cards ── */
+    .structure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .structure-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+    }
+    .structure-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .structure-card-img {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .structure-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .structure-card:hover .structure-card-img img { transform: scale(1.05); }
+    .structure-card-body {
+      background: var(--white);
+      padding: 24px;
+    }
+    .structure-card-body h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--olive-dark);
+      margin-bottom: 8px;
+    }
+    .structure-card-body p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Circular economy diagram ── */
+    .circular-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .circular-step {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 20px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      transition: var(--transition);
+    }
+    .circular-step:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .circular-step::after {
+      content: '→';
+      position: absolute;
+      right: -18px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.6rem;
+      color: var(--orange);
+      z-index: 1;
+    }
+    .circular-step:last-child::after { display: none; }
+    .step-num {
+      width: 48px; height: 48px;
+      background: var(--gradient-warm);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0 auto 16px;
+    }
+    .step-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+    .step-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--olive-dark);
+      margin-bottom: 8px;
+    }
+    .step-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ── Benefits list ── */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .benefit-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+    }
+    .benefit-item:hover { transform: translateX(6px); border-left: 3px solid var(--orange); }
+    .benefit-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .benefit-content h4 { font-weight: 700; color: var(--olive-dark); margin-bottom: 4px; }
+    .benefit-content p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; }
+
+    @media (max-width: 768px) {
+      .structure-grid { grid-template-columns: 1fr; }
+      .circular-steps { grid-template-columns: 1fr; }
+      .circular-step::after { display: none; }
+      .benefits-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 1024px) {
+      .circular-steps { grid-template-columns: repeat(2, 1fr); }
+      .circular-step::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/WhatsApp_Image_2026-07-15_at_09.53.42.jpeg" alt="Agripolonia Logo" />
+      <div class="nav-logo-text">
+        <span class="name">Agripolonia</span>
+        <span class="tagline">Vivaio Autorizzato Puglia</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html" class="active">Chi Siamo</a></li>
+      <li><a href="prodotti.html">Prodotti</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+      <li class="nav-cta"><a href="contatti.html">Richiedi Preventivo</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('images/WhatsApp_Image_2026-07-15_at_09.55.05.jpeg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep">›</span>
+        <span class="current">Chi Siamo</span>
+      </div>
+      <h1>La Nostra Storia<br/>e la Nostra Missione</h1>
+      <p>Dall'esperienza cooperativa del 2013 all'adozione di un modello biologico e naturale. Forniamo materia prima certificata per biogas e frutti di altissima qualità.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── STORIA E MISSION ── -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start;">
+      <div class="reveal">
+        <span class="tag tag-green">La Nostra Storia</span>
+        <h2 class="section-title">Da Cooperativa a Vivaio Certificato</h2>
+        <p style="color:var(--text-muted); line-height:1.7; margin-bottom:28px; font-size:0.97rem;">
+          Agripolonia SRLS è l'evoluzione naturale della precedente cooperativa agricola, nata nel 2013
+          con la passione per l'agricoltura e la coltivazione biologica e naturale di specie resistenti.
+        </p>
+        <p style="color:var(--text-muted); line-height:1.7; margin-bottom:28px; font-size:0.97rem;">
+          Con la costituzione della SRLS, abbiamo trasformato l'azienda agricola in un
+          <strong>vivaio ufficialmente riconosciuto dalla Regione Puglia</strong>,
+          ottenendo le necessarie certificazioni, passaporto fitosanitario e l'autorizzazione alla commercializzazione.
+        </p>
+        <p style="color:var(--text-muted); line-height:1.7; font-size:0.97rem;">
+          Oggi siamo specializzati nella coltivazione biologica di <strong>Fico d'India</strong> e piante succulente, 
+          offrendo piantine certificate con passaporto fitosanitario e ponendoci come fornitori di materia prima vegetale di alta qualità (cladodi) per gli impianti di biogas di terzi.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2013</div>
+            <div class="timeline-title">Fondazione Cooperativa Agricola</div>
+            <p class="timeline-text">Nasce la precedente cooperativa agricola con l'obiettivo di specializzarsi nelle coltivazioni innovative e nello sviluppo del territorio pugliese.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Evoluzione</div>
+            <div class="timeline-title">Alta Specializzazione nel Settore</div>
+            <p class="timeline-text">Sviluppo delle competenze tecniche nella coltivazione del Fico d'India e nella gestione biologica e naturale delle piantagioni.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Trasformazione</div>
+            <div class="timeline-title">Vivaio Certificato Agripolonia SRLS</div>
+            <p class="timeline-text">Trasformazione in vivaio autorizzato con riconoscimento ufficiale dalla Regione Puglia, passaporto fitosanitario e certificazioni di qualità.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Oggi</div>
+            <div class="timeline-title">Fornitura Materia Prima per Biogas</div>
+            <p class="timeline-text">Avvio della fornitura di pale (cladodi) come materia prima biologica e ad alto potere metanigeno per impianti di biogas di terzi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRUTTURA VIVAISTICA ── -->
+<section class="section section-alt">
+  <div class="container">
+    <div style="text-align:center; max-width:620px; margin:0 auto 16px;" class="reveal">
+      <span class="tag">Le Nostre Strutture</span>
+      <h2 class="section-title">La Struttura Vivaistica</h2>
+      <p class="section-sub">Impianti moderni, coltivazioni biologiche e naturali e un sistema di gestione che garantisce qualità, tracciabilità e continuità di fornitura.</p>
+    </div>
+    <div class="structure-grid">
+      <div class="structure-card reveal">
+        <div class="structure-card-img">
+          <img src="images/WhatsApp_Image_2026-07-15_at_09.53.49.jpeg" alt="Impianto coltivazione fico d'India" />
+        </div>
+        <div class="structure-card-body">
+          <h4>🌵 Coltivazioni Biologiche</h4>
+          <p>Coltiviamo con metodi naturali e biologici, rispettando la biodiversità e offrendo un prodotto sano, forte e altamente performante sia per il vivaismo che per il biogas.</p>
+        </div>
+      </div>
+      <div class="structure-card reveal reveal-delay-1">
+        <div class="structure-card-img">
+          <img src="images/WhatsApp_Image_2026-07-15_at_09.54.36.jpeg" alt="Materiale vivaistico certificato" />
+        </div>
+        <div class="structure-card-body">
+          <h4>🏷️ Materiale Certificato</h4>
+          <p>Tutte le piantine vengono prodotte e commercializzate con passaporto fitosanitario ufficiale, nel rispetto delle normative europee sulla qualità del materiale vegetale.</p>
+        </div>
+      </div>
+      <div class="structure-card reveal reveal-delay-2">
+        <div class="structure-card-img">
+          <img src="images/WhatsApp_Image_2026-07-15_at_09.54.38.jpeg" alt="Campo fico d'india Puglia" />
+        </div>
+        <div class="structure-card-body">
+          <h4>🌍 Terreni Pugliesi</h4>
+          <p>Le nostre piantagioni si trovano in Puglia, in un contesto climatico ideale per il Fico d'India: clima mediterraneo, terreni ben drenati e alta insolazione.</p>
+        </div>
+      </div>
+      <div class="structure-card reveal reveal-delay-3">
+        <div class="structure-card-img">
+          <img src="images/WhatsApp_Image_2026-07-15_at_09.54.39.jpeg" alt="Fornitura all'ingrosso vivaistico" />
+        </div>
+        <div class="structure-card-body">
+          <h4>📦 Logistica e Fornitura</h4>
+          <p>Sistema organizzato di raccolta, selezione e consegna del materiale vivaistico. Fornitura programmata con contratti a prezzi fissi per garantire continuità agli acquirenti.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROGETTO CIRCOLARE ── -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center; max-width:680px; margin:0 auto 56px;" class="reveal">
+      <span class="tag">Innovazione</span>
+      <h2 class="section-title">Filiera e Sostenibilità</h2>
+      <p class="section-sub">
+        La nostra visione integra la coltivazione biologica del Fico d'India con la fornitura di materia prima per la produzione di bioenergia rinnovabile presso impianti di biogas di terzi.
+      </p>
+    </div>
+    <div class="circular-steps">
+      <div class="circular-step reveal">
+        <span class="step-icon">🌾</span>
+        <div class="step-num">1</div>
+        <div class="step-title">Produzione Agricola</div>
+        <p class="step-text">Coltiviamo Fico d'India con metodi biologici e naturali, garantendo l'assoluta purezza ed ecologia della materia prima.</p>
+      </div>
+      <div class="circular-step reveal reveal-delay-1">
+        <span class="step-icon">🚛</span>
+        <div class="step-num">2</div>
+        <div class="step-title">Raccolta e Conferimento</div>
+        <p class="step-text">La biomassa fresca (cladodi) viene raccolta e fornita alle aziende partner che necessitano di matrice metanigena.</p>
+      </div>
+      <div class="circular-step reveal reveal-delay-2">
+        <span class="step-icon">⚡</span>
+        <div class="step-num">3</div>
+        <div class="step-title">Conversione Energetica</div>
+        <p class="step-text">Gli impianti di biogas di terzi convertono la biomassa fornita da Agripolonia in energia rinnovabile, calore e biometano.</p>
+      </div>
+      <div class="circular-step reveal reveal-delay-3">
+        <span class="step-icon">♻️</span>
+        <div class="step-num">4</div>
+        <div class="step-title">Impatto Sostenibile</div>
+        <p class="step-text">Riduzione emissioni di gas serra, rigenerazione biologica del suolo e creazione di una filiera circolare e naturale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BENEFICI ── -->
+<section class="section section-alt">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
+      <div class="reveal">
+        <span class="tag tag-green">Perché il Fico d'India</span>
+        <h2 class="section-title">Vantaggi Economici<br/>e Ambientali</h2>
+        <p class="section-sub">Il Fico d'India è una pianta eccezionale per la produzione di materia prima vegetale: resistente alla siccità, ad alta resa e disponibile tutto l'anno.</p>
+      </div>
+      <div class="benefits-grid reveal reveal-delay-2">
+        <div class="benefit-item">
+          <div class="benefit-icon">💧</div>
+          <div class="benefit-content">
+            <h4>Resistenza Siccità</h4>
+            <p>Cresce in condizioni estreme di siccità e alte temperature, valorizzando terreni marginali.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">📅</div>
+          <div class="benefit-content">
+            <h4>Sempre Disponibile</h4>
+            <p>Risolve le problematiche di stagionalità: il Fico d'India è reperibile tutto l'anno.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🔬</div>
+          <div class="benefit-content">
+            <h4>Alto Potere Metanigeno</h4>
+            <p>Ottima qualità della pala per la digestione anaerobica. Non produce cattivi odori.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">💰</div>
+          <div class="benefit-content">
+            <h4>Reddito Aggiuntivo</h4>
+            <p>Gli agricoltori diversificano le colture e accedono a un nuovo mercato sicuro e garantito.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🌱</div>
+          <div class="benefit-content">
+            <h4>Suoli Rigenerati</h4>
+            <p>Il digestato prodotto viene utilizzato come fertilizzante naturale, migliorando la qualità del suolo.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🏭</div>
+          <div class="benefit-content">
+            <h4>Energia Locale</h4>
+            <p>Energia rinnovabile e pulita prodotta localmente, riducendo la dipendenza da fonti fossili.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERIA CHI SIAMO ── -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:48px;" class="reveal">
+      <span class="tag tag-green">Immagini dal Campo</span>
+      <h2 class="section-title">Le Nostre Coltivazioni in Puglia</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item wide tall" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.56.45.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.56.45.jpeg" alt="Campo fico d'India esteso" />
+        <div class="gallery-overlay"><span>Piantagione Estesa</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.55.051.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.55.051.jpeg" alt="Dettaglio pianta" />
+        <div class="gallery-overlay"><span>Dettaglio Pianta</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.40.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.40.jpeg" alt="Coltivazione fico" />
+        <div class="gallery-overlay"><span>Coltivazione</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.41.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.41.jpeg" alt="Piante fiche" />
+        <div class="gallery-overlay"><span>Piante Mature</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.56.46.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.56.46.jpeg" alt="Vista panoramica" />
+        <div class="gallery-overlay"><span>Vista Panoramica</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.412.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.412.jpeg" alt="Materiale vivaistico" />
+        <div class="gallery-overlay"><span>Materiale Vivaistico</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.42.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.42.jpeg" alt="Giovani piante" />
+        <div class="gallery-overlay"><span>Giovani Piante</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-08-16_at_12.14.29.jpeg')">
+        <img src="images/WhatsApp_Image_2026-08-16_at_12.14.29.jpeg" alt="Panoramica campi" />
+        <div class="gallery-overlay"><span>Panoramica Campi</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-08-17_at_09.48.18.jpeg')">
+        <img src="images/WhatsApp_Image_2026-08-17_at_09.48.18.jpeg" alt="Coltivazione e Natura" />
+        <div class="gallery-overlay"><span>Dettagli Vivaio</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="section section-alt">
+  <div class="container" style="text-align:center;">
+    <div class="reveal" style="max-width:680px; margin:0 auto;">
+      <span class="tag">Collabora con Noi</span>
+      <h2 class="section-title">Vuoi far parte del progetto?</h2>
+      <p class="section-sub" style="margin:0 auto 36px;">Siamo pronti a fornire piantine certificate e pale fresche per soddisfare il fabbisogno di privati, vivai e impianti biogas di terzi.</p>
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a href="contatti.html" class="btn btn-primary">📞 Contattaci Ora</a>
+        <a href="prodotti.html" class="btn btn-green">🌵 Scopri i Prodotti</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">Agripolonia</div>
+        <p>Vivaio autorizzato dalla Regione Puglia specializzato in Fico d'India, piante succulente e commercio all'ingrosso di materiale vivaistico con coltivazione biologica e naturale.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigazione</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chi-siamo.html">Chi Siamo</a></li>
+          <li><a href="prodotti.html">Prodotti</a></li>
+          <li><a href="contatti.html">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Prodotti</h5>
+        <ul>
+          <li><a href="prodotti.html#fichi-india">Fico d'India</a></li>
+          <li><a href="prodotti.html#succulente">Succulente</a></li>
+          <li><a href="prodotti.html#frutti">Vendita Frutti</a></li>
+          <li><a href="prodotti.html#ingrosso">Ingrosso B2B</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="tel:+39">📞 Telefono</a></li>
+          <li><a href="https://wa.me/39" target="_blank">💬 WhatsApp</a></li>
+          <li><a href="mailto:agripaulownia61@gmail.com">✉️ Email</a></li>
+          <li><a href="contatti.html">📍 Sede</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Agripolonia SRLS – Tutti i diritti riservati – P.IVA 03420760732 – PEC: agripaulownia@pec.it</span>
+      <span>Vivaio Autorizzato Regione Puglia</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/39" class="whatsapp-float" target="_blank" title="WhatsApp">💬</a>
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">✕</span>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="Immagine" />
+</div>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+  function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+  function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightbox').classList.add('active'); }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+</script>
+</body>
+</html>

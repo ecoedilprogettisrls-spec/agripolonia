@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prodotti – Agripolonia | Fico d'India, Succulente, Ingrosso B2B</title>
+  <meta name="description" content="Scopri i prodotti di Agripolonia: piantine di Fico d'India biologiche a foglia singola o doppia, frutti saporiti freschi, piante succulente e fornitura di pale per impianti di biogas di terzi." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Product Section Header ── */
+    .product-section-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+    .product-section-header.reverse { direction: rtl; }
+    .product-section-header.reverse > * { direction: ltr; }
+
+    /* ── Big product hero image ── */
+    .product-hero-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      aspect-ratio: 4/3;
+    }
+    .product-hero-img img { width:100%; height:100%; object-fit:cover; }
+
+    /* ── Variety cards ── */
+    .variety-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .variety-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+    }
+    .variety-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .variety-card-img {
+      aspect-ratio: 3/2;
+      overflow: hidden;
+    }
+    .variety-card-img img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s; }
+    .variety-card:hover .variety-card-img img { transform: scale(1.06); }
+    .variety-card-body { padding: 20px; }
+    .variety-card-body h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--olive-dark);
+      margin-bottom: 6px;
+    }
+    .variety-card-body p { font-size:0.82rem; color:var(--text-muted); line-height:1.6; }
+
+    /* ── Specs table ── */
+    .specs-table {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+    .specs-table table { width:100%; border-collapse: collapse; }
+    .specs-table th {
+      background: var(--gradient-green);
+      color: var(--white);
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .specs-table td {
+      padding: 13px 20px;
+      font-size: 0.88rem;
+      border-bottom: 1px solid var(--cream-dark);
+      color: var(--text-muted);
+    }
+    .specs-table tr:last-child td { border-bottom: none; }
+    .specs-table tr:nth-child(even) td { background: var(--cream); }
+    .specs-table td:first-child { font-weight: 700; color: var(--olive-dark); }
+
+    /* ── Ingrosso cards ── */
+    .ingrosso-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    .ingrosso-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+      border-left: 5px solid var(--olive);
+    }
+    .ingrosso-card:hover {
+      transform: translateY(-6px);
+      border-left-color: var(--orange);
+      box-shadow: var(--shadow-md);
+    }
+    .ingrosso-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--olive-dark);
+      margin-bottom: 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .ingrosso-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .ingrosso-list {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+    .ingrosso-list li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .ingrosso-list li:last-child { border-bottom: none; }
+    .ingrosso-list .check { color: var(--olive); font-weight: 700; flex-shrink: 0; }
+
+    /* ── Section anchor ── */
+    .section-anchor { scroll-margin-top: 90px; }
+
+    /* ── Succulente mosaic ── */
+    .succ-mosaic {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 200px 200px;
+      gap: 12px;
+      margin-top: 40px;
+    }
+    .succ-mosaic .item { border-radius: var(--radius-sm); overflow: hidden; }
+    .succ-mosaic .item img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s; }
+    .succ-mosaic .item:hover img { transform: scale(1.08); cursor:pointer; }
+    .succ-mosaic .item.big { grid-column: span 2; grid-row: span 2; }
+
+    /* ── Highlight strip ── */
+    .biogas-strip {
+      background: linear-gradient(135deg, #1a1f0a 0%, #3d4a1e 60%, #5a2600 100%);
+      border-radius: var(--radius);
+      padding: 48px;
+      color: var(--white);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+    .biogas-strip h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+    .biogas-strip p { font-size:0.95rem; opacity:.8; line-height:1.7; }
+
+    @media(max-width:1024px) {
+      .product-section-header { grid-template-columns: 1fr; gap:32px; }
+      .product-section-header.reverse { direction: ltr; }
+      .variety-grid { grid-template-columns: repeat(2, 1fr); }
+      .succ-mosaic { grid-template-columns: repeat(2, 1fr); }
+      .succ-mosaic .item.big { grid-column: span 2; }
+    }
+    @media(max-width:768px) {
+      .variety-grid { grid-template-columns: 1fr; }
+      .ingrosso-grid { grid-template-columns: 1fr; }
+      .biogas-strip { grid-template-columns: 1fr; }
+      .succ-mosaic { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width:480px) {
+      .succ-mosaic { grid-template-columns: 1fr; }
+      .succ-mosaic .item.big { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/WhatsApp_Image_2026-07-15_at_09.53.42.jpeg" alt="Agripolonia" />
+      <div class="nav-logo-text">
+        <span class="name">Agripolonia</span>
+        <span class="tagline">Vivaio Autorizzato Puglia</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi Siamo</a></li>
+      <li><a href="prodotti.html" class="active">Prodotti</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+      <li class="nav-cta"><a href="contatti.html">Richiedi Preventivo</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('images/WhatsApp_Image_2026-07-15_at_09.54.492.jpeg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep">›</span>
+        <span class="current">Prodotti</span>
+      </div>
+      <h1>I Nostri Prodotti</h1>
+      <p>Dalle piantine certificate con passaporto fitosanitario (a foglia singola o doppia) ai frutti biologici, fino alla materia prima vegetale per impianti biogas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUICK NAV ── -->
+<div style="background:var(--white); border-bottom:2px solid var(--cream-dark); position:sticky; top:0; z-index:100; padding:0;">
+  <div class="container" style="display:flex; gap:4px; overflow-x:auto; padding:14px 24px; scrollbar-width:none;">
+    <a href="#fichi-india" style="white-space:nowrap; padding:8px 20px; border-radius:50px; background:var(--cream); color:var(--olive-dark); font-size:0.85rem; font-weight:600; transition:var(--transition);" onmouseover="this.style.background='var(--orange)';this.style.color='white'" onmouseout="this.style.background='var(--cream)';this.style.color='var(--olive-dark)'">🌵 Fico d'India</a>
+    <a href="#succulente" style="white-space:nowrap; padding:8px 20px; border-radius:50px; background:var(--cream); color:var(--olive-dark); font-size:0.85rem; font-weight:600; transition:var(--transition);" onmouseover="this.style.background='var(--orange)';this.style.color='white'" onmouseout="this.style.background='var(--cream)';this.style.color='var(--olive-dark)'">🌿 Succulente</a>
+    <a href="#ingrosso" style="white-space:nowrap; padding:8px 20px; border-radius:50px; background:var(--cream); color:var(--olive-dark); font-size:0.85rem; font-weight:600; transition:var(--transition);" onmouseover="this.style.background='var(--orange)';this.style.color='white'" onmouseout="this.style.background='var(--cream)';this.style.color='var(--olive-dark)'">📦 Ingrosso B2B</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SEZIONE 1 – FICO D'INDIA                                  -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="section section-anchor" id="fichi-india">
+  <div class="container">
+    <!-- Header sezione -->
+    <div class="product-section-header reveal">
+      <div>
+        <span class="tag">⭐ Prodotto di Punta</span>
+        <h2 class="section-title">Fico d'India<br/><em style="color:var(--orange)">Opuntia ficus-indica</em></h2>
+        <p style="color:var(--text-muted); line-height:1.75; margin-bottom:24px; font-size:0.97rem;">
+          Coltiviamo Fico d'India in Puglia seguendo un modello di <strong>agricoltura biologica e naturale</strong>. 
+          Offriamo piantine certificate con passaporto fitosanitario disponibili in due varianti: piantina a foglia singola (una pala) o piantina a doppia foglia (due pale). 
+          Inoltre, effettuiamo la vendita dei frutti freschi di fico d'india durante il periodo di raccolta e forniamo pale fresche (cladodi) di alta qualità come materia prima vegetale per gli impianti di biogas di terzi.
+        </p>
+        <ul style="list-style:none; margin-bottom:28px;">
+          <li style="display:flex; gap:10px; margin-bottom:10px; font-size:0.9rem; color:var(--text-muted);">✅ <span><strong>Piantina a Foglia Singola</strong> – Pala singola radicata, pronta per la piantumazione</span></li>
+          <li style="display:flex; gap:10px; margin-bottom:10px; font-size:0.9rem; color:var(--text-muted);">✅ <span><strong>Piantina a Doppia Foglia</strong> – Due pale sviluppate e radicate, maggiore vigore iniziale</span></li>
+          <li style="display:flex; gap:10px; margin-bottom:10px; font-size:0.9rem; color:var(--text-muted);">✅ <span><strong>Vendita dei Frutti</strong> – Frutti biologici e saporiti, raccolti a mano</span></li>
+          <li style="display:flex; gap:10px; margin-bottom:10px; font-size:0.9rem; color:var(--text-muted);">✅ <span><strong>Materia Prima per Biogas</strong> – Fornitura costante di pale ad alto potere metanigeno per impianti terzi</span></li>
+          <li style="display:flex; gap:10px; font-size:0.9rem; color:var(--text-muted);">✅ <span><strong>Passaporto Fitosanitario</strong> – Piantine sicure e certificate Regione Puglia</span></li>
+        </ul>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="contatti.html" class="btn btn-primary">📞 Richiedi Preventivo</a>
+          <a href="contatti.html" class="btn btn-green">💬 WhatsApp Info</a>
+        </div>
+      </div>
+      <div class="product-hero-img">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.48.jpeg" alt="Fico d'India Opuntia" />
+      </div>
+    </div>
+
+    <!-- Scheda tecnica -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:48px;">
+      <div class="specs-table reveal">
+        <table>
+          <thead><tr><th colspan="2">🔬 Caratteristiche Tecniche – Pale (Cladodi)</th></tr></thead>
+          <tbody>
+            <tr><td>Utilizzo principale</td><td>Materia prima per biogas di terzi, vivaismo</td></tr>
+            <tr><td>Qualità biologica</td><td>Coltivazione naturale al 100% senza pesticidi</td></tr>
+            <tr><td>Potere metanigeno</td><td>Elevato – ottima resa</td></tr>
+            <tr><td>Odori fermentazione</td><td>Nessun cattivo odore nell'impianto</td></tr>
+            <tr><td>Disponibilità</td><td>Tutto l'anno (12 mesi)</td></tr>
+            <tr><td>Fornitura</td><td>Su misura per le esigenze dell'impianto</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="specs-table reveal reveal-delay-2">
+        <table>
+          <thead><tr><th colspan="2">🌱 Caratteristiche – Piantine e Frutti</th></tr></thead>
+          <tbody>
+            <tr><td>Tipologia Piantine</td><td>Foglia Singola (1 pala) / Doppia Foglia (2 pale)</td></tr>
+            <tr><td>Certificazione</td><td>Passaporto Fitosanitario Regione Puglia</td></tr>
+            <tr><td>Coltivazione</td><td>Metodo biologico e naturale</td></tr>
+            <tr><td>Periodo frutti</td><td>Agosto - Ottobre (raccolta stagionale)</td></tr>
+            <tr><td>Resistenza siccità</td><td>Molto alta – adatte a giardini e terreni aridi</td></tr>
+            <tr><td>Produzione frutti</td><td>Varietà selezionate per la massima dolcezza</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Galleria Fico d'India -->
+    <h3 style="font-family:'Playfair Display',serif; color:var(--olive-dark); font-size:1.5rem; margin-bottom:28px;" class="reveal">
+      📸 Immagini dal Campo
+    </h3>
+    <div class="gallery-grid" style="grid-template-columns:repeat(4,1fr); grid-auto-rows:200px;">
+      <div class="gallery-item wide tall" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.53.44.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.44.jpeg" alt="Campo fico d'India" />
+        <div class="gallery-overlay"><span>Piantagione</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.53.433.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.433.jpeg" alt="Pale cladodi" />
+        <div class="gallery-overlay"><span>Cladodi</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.53.46.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.46.jpeg" alt="Dettaglio fico" />
+        <div class="gallery-overlay"><span>Dettaglio</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.13.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.13.jpeg" alt="Fichi maturazione" />
+        <div class="gallery-overlay"><span>Maturazione</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.14.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.14.jpeg" alt="Coltivazione biologica" />
+        <div class="gallery-overlay"><span>Coltivazione Biologica</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.53.423.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.423.jpeg" alt="Piante mature" />
+        <div class="gallery-overlay"><span>Piante Mature</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.53.421.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.421.jpeg" alt="Vivaio fico" />
+        <div class="gallery-overlay"><span>Vivaio</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-08-17_at_09.48.17.jpeg')">
+        <img src="images/WhatsApp_Image_2026-08-17_at_09.48.17.jpeg" alt="Piantina Radicata" />
+        <div class="gallery-overlay"><span>Piantina Radicata</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-08-17_at_09.48.18_1.jpeg')">
+        <img src="images/WhatsApp_Image_2026-08-17_at_09.48.18_1.jpeg" alt="Raccolto Cladodi" />
+        <div class="gallery-overlay"><span>Raccolto Cladodi</span></div>
+      </div>
+    </div>
+
+    <!-- Biogas strip -->
+    <div class="biogas-strip reveal" style="margin-top:48px;">
+      <div>
+        <h3>🔋 Fornitura Materia Prima per Impianti Biogas</h3>
+        <p>
+          Il Fico d'India biologico è ideale per la digestione anaerobica degli impianti di biogas: è disponibile tutto l'anno,
+          non produce cattivi odori e ha un ottimo potere metanigeno. Agripolonia è a disposizione delle aziende per fornire 
+          la materia prima vegetale (pale e cladodi freschi) necessaria al fabbisogno degli impianti di biogas di terzi.
+        </p>
+      </div>
+      <div style="flex-shrink:0;">
+        <a href="contatti.html" class="btn btn-primary" style="white-space:nowrap;">Contattaci per Fornitura →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SEZIONE 2 – SUCCULENTE E PIANTE GRASSE                   -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="section section-alt section-anchor" id="succulente">
+  <div class="container">
+    <div class="product-section-header reverse reveal">
+      <div class="product-hero-img">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.33.jpeg" alt="Succulente e piante grasse" />
+      </div>
+      <div>
+        <span class="tag tag-green">🌿 Vivaismo Ornamentale</span>
+        <h2 class="section-title">Succulente &amp;<br/>Piante Grasse</h2>
+        <p style="color:var(--text-muted); line-height:1.75; margin-bottom:24px; font-size:0.97rem;">
+          Il nostro vivaio propone un'ampia selezione di piante succulente e grasse per il mercato
+          ornamentale, ideali per garden center, rivenditori e grossisti. Ogni pianta viene coltivata
+          con cura e fornita con tutta la documentazione necessaria.
+        </p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;">
+          <div style="background:var(--white); border-radius:var(--radius-sm); padding:16px; box-shadow:var(--shadow-soft);">
+            <div style="font-size:1.5rem; margin-bottom:6px;">🌵</div>
+            <div style="font-weight:700; font-size:0.9rem; color:var(--olive-dark);">Cactacee</div>
+            <div style="font-size:0.8rem; color:var(--text-muted);">Opuntia, Cereus, Echinopsis e molte altre varietà</div>
+          </div>
+          <div style="background:var(--white); border-radius:var(--radius-sm); padding:16px; box-shadow:var(--shadow-soft);">
+            <div style="font-size:1.5rem; margin-bottom:6px;">🌿</div>
+            <div style="font-weight:700; font-size:0.9rem; color:var(--olive-dark);">Succulente</div>
+            <div style="font-size:0.8rem; color:var(--text-muted);">Agave, Aloe, Sedum, Echeveria e varietà rare</div>
+          </div>
+          <div style="background:var(--white); border-radius:var(--radius-sm); padding:16px; box-shadow:var(--shadow-soft);">
+            <div style="font-size:1.5rem; margin-bottom:6px;">🌿</div>
+            <div style="font-weight:700; font-size:0.9rem; color:var(--olive-dark);">Ornamentali</div>
+            <div style="font-size:0.8rem; color:var(--text-muted);">Ideali per giardini aridi, terrazzi e allestimenti</div>
+          </div>
+          <div style="background:var(--white); border-radius:var(--radius-sm); padding:16px; box-shadow:var(--shadow-soft);">
+            <div style="font-size:1.5rem; margin-bottom:6px;">📦</div>
+            <div style="font-weight:700; font-size:0.9rem; color:var(--olive-dark);">Ingrosso</div>
+            <div style="font-size:0.8rem; color:var(--text-muted);">Forniture bulk per garden center e rivenditori</div>
+          </div>
+        </div>
+        <a href="contatti.html" class="btn btn-primary">Richiedi Catalogo →</a>
+      </div>
+    </div>
+
+    <!-- Mosaic gallery succulente -->
+    <div class="succ-mosaic">
+      <div class="item big" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.34.jpeg')" style="cursor:pointer;">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.34.jpeg" alt="Succulenta grande" />
+      </div>
+      <div class="item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.35.jpeg')" style="cursor:pointer;">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.35.jpeg" alt="Pianta grassa" />
+      </div>
+      <div class="item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.36.jpeg')" style="cursor:pointer;">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.36.jpeg" alt="Cactus ornamentale" />
+      </div>
+      <div class="item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.37.jpeg')" style="cursor:pointer;">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.37.jpeg" alt="Succulente varie" />
+      </div>
+      <div class="item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.38.jpeg')" style="cursor:pointer;">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.38.jpeg" alt="Piante ornamentali" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SEZIONE 3 – INGROSSO E COMMERCIO B2B                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="section section-alt section-anchor" id="ingrosso">
+  <div class="container">
+    <div style="text-align:center; max-width:640px; margin:0 auto 56px;" class="reveal">
+      <span class="tag tag-green">Commercio all'Ingrosso</span>
+      <h2 class="section-title">Fornitura B2B &amp; Ingrosso</h2>
+      <p class="section-sub">Soluzioni dedicate a vivai, garden center, aziende agricole, impianti biogas e distributori commerciali. Prodotti naturali e biologici certificati.</p>
+    </div>
+    <div class="ingrosso-grid">
+      <!-- Card 1 -->
+      <div class="ingrosso-card reveal">
+        <h4>🌿 Piante Finite per Rivendita</h4>
+        <p>Fornitura di piante pronte per la vendita al dettaglio: Fico d'India ornamentale, succulente, cactacee e piante grasse in diversi formati e vasi.</p>
+        <ul class="ingrosso-list">
+          <li><span class="check">✓</span>Disponibili in vasi da 9 cm a 40 cm</li>
+          <li><span class="check">✓</span>Varietà selezionate per il mercato retail</li>
+          <li><span class="check">✓</span>Consegne programmate su tutto il territorio</li>
+          <li><span class="check">✓</span>Condizioni di pagamento flessibili per B2B</li>
+          <li><span class="check">✓</span>Supporto per allestimenti e display</li>
+        </ul>
+        <a href="contatti.html" class="btn btn-green" style="width:100%; justify-content:center;">Richiedi Listino Prezzi</a>
+      </div>
+      <!-- Card 2 -->
+      <div class="ingrosso-card reveal reveal-delay-1">
+        <h4>🌱 Materiale di Propagazione</h4>
+        <p>Fornitura di giovani piante a foglia singola o doppia foglia e talee per altri vivai che vogliono integrare il Fico d'India nel loro assortimento di piante grasse e succulente.</p>
+        <ul class="ingrosso-list">
+          <li><span class="check">✓</span>Talee e giovani piante sane e radicate</li>
+          <li><span class="check">✓</span>Passaporto fitosanitario per la tracciabilità fitosanitaria</li>
+          <li><span class="check">✓</span>Grandi quantitativi disponibili su prenotazione</li>
+          <li><span class="check">✓</span>Consulenza tecnica sull'attecchimento in terra</li>
+          <li><span class="check">✓</span>Fornitures biologiche certificate</li>
+        </ul>
+        <a href="contatti.html" class="btn btn-green" style="width:100%; justify-content:center;">Richiedi Preventivo</a>
+      </div>
+      <!-- Card 3 -->
+      <div class="ingrosso-card reveal reveal-delay-2">
+        <h4>🔋 Materia Prima per Biogas</h4>
+        <p>Fornitura bulk di pale fresche di Fico d'India (cladodi) biologiche e naturali per soddisfare il fabbisogno di matrici vegetali degli impianti di biogas.</p>
+        <ul class="ingrosso-list">
+          <li><span class="check">✓</span>Fornitura di cladodi freschi di alta qualità</li>
+          <li><span class="check">✓</span>Materia prima coltivata in modo naturale al 100%</li>
+          <li><span class="check">✓</span>Nessun cattivo odore nelle fasi di stoccaggio e fermentazione</li>
+          <li><span class="check">✓</span>Ottima resa metanigena e stabilità del digestore</li>
+          <li><span class="check">✓</span>Pianificazione delle consegne in base alle necessità</li>
+        </ul>
+        <a href="contatti.html" class="btn btn-primary" style="width:100%; justify-content:center;">Richiedi Preventivo Fornitura</a>
+      </div>
+      <!-- Card 4 -->
+      <div class="ingrosso-card reveal reveal-delay-3">
+        <h4>🤝 Vendita Frutti Freschi</h4>
+        <p>Fornitura di frutti di Fico d'India freschi biologici a distributori, mercati ortofrutticoli locali, rivenditori B2B o gruppi di acquisto.</p>
+        <ul class="ingrosso-list">
+          <li><span class="check">✓</span>Frutti biologici maturati naturalmente sulla pianta</li>
+          <li><span class="check">✓</span>Raccolta manuale accurata e selezione dei frutti</li>
+          <li><span class="check">✓</span>Disponibilità stagionale da fine estate ad autunno</li>
+          <li><span class="check">✓</span>Massima freschezza e gusto tipico del territorio pugliese</li>
+          <li><span class="check">✓</span>Confezionamento e logistica concordati su misura</li>
+        </ul>
+        <a href="contatti.html" class="btn btn-green" style="width:100%; justify-content:center;">Richiedi Listino Frutti</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ULTERIORE GALLERIA ── -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:40px;" class="reveal">
+      <span class="tag">Galleria Prodotti</span>
+      <h2 class="section-title">Altre Immagini dal Vivaio</h2>
+    </div>
+    <div class="gallery-grid" style="grid-auto-rows:200px;">
+      <div class="gallery-item wide" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.55.04.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.55.04.jpeg" alt="Campo produzione" />
+        <div class="gallery-overlay"><span>Campo Produzione</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.55.05.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.55.05.jpeg" alt="Coltivazione biologica" />
+        <div class="gallery-overlay"><span>Coltivazione Biologica</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.55.051.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.55.051.jpeg" alt="Dettaglio pale" />
+        <div class="gallery-overlay"><span>Dettaglio Pale</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/5.jpeg')">
+        <img src="images/5.jpeg" alt="Fico d'india frutto" />
+        <div class="gallery-overlay"><span>Frutti</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.491.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.491.jpeg" alt="Piantagione ampia" />
+        <div class="gallery-overlay"><span>Vista Piantagione</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.492.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.492.jpeg" alt="Materiale pronto" />
+        <div class="gallery-overlay"><span>Materiale Pronto</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.53.43.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.43.jpeg" alt="Vivaio" />
+        <div class="gallery-overlay"><span>Vivaio</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-08-25_at_10.26.02_1.jpeg')">
+        <img src="images/WhatsApp_Image_2026-08-25_at_10.26.02_1.jpeg" alt="Raccolto Fichi" />
+        <div class="gallery-overlay"><span>Frutti Raccolti</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-08-25_at_10.26.02_3.jpeg')">
+        <img src="images/WhatsApp_Image_2026-08-25_at_10.26.02_3.jpeg" alt="Crescita Pale" />
+        <div class="gallery-overlay"><span>Crescita Pale</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINALE ── -->
+<section class="section section-alt">
+  <div class="container" style="text-align:center;">
+    <div class="reveal">
+      <h2 class="section-title">Hai Bisogno di un Preventivo?</h2>
+      <p class="section-sub" style="margin:0 auto 36px;">Contattaci per informazioni su quantitativi, prezzi, contratti di fornitura e disponibilità. Rispondiamo entro 24 ore.</p>
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a href="contatti.html" class="btn btn-primary">📋 Richiedi Preventivo</a>
+        <a href="https://wa.me/39" class="btn btn-green" target="_blank">💬 WhatsApp Business</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">Agripolonia</div>
+        <p>Vivaio autorizzato dalla Regione Puglia. Fico d'India, succulente e commercio all'ingrosso B2B con passaporto fitosanitario. Coltivazione biologica e naturale.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigazione</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chi-siamo.html">Chi Siamo</a></li>
+          <li><a href="prodotti.html">Prodotti</a></li>
+          <li><a href="contatti.html">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Prodotti</h5>
+        <ul>
+          <li><a href="#fichi-india">🌵 Fico d'India</a></li>
+          <li><a href="#succulente">🌿 Succulente</a></li>
+          <li><a href="#ingrosso">📦 Ingrosso B2B</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="tel:+39">📞 Telefono</a></li>
+          <li><a href="https://wa.me/39" target="_blank">💬 WhatsApp</a></li>
+          <li><a href="mailto:agripaulownia61@gmail.com">✉️ Email</a></li>
+          <li><a href="contatti.html">📍 Sede Puglia</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Agripolonia SRLS – Tutti i diritti riservati – P.IVA 03420760732 – PEC: agripaulownia@pec.it</span>
+      <span>Vivaio Autorizzato Regione Puglia</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/39" class="whatsapp-float" target="_blank">💬</a>
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">✕</span>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+</div>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+  function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+  function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightbox').classList.add('active'); }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+</script>
+</body>
+</html>

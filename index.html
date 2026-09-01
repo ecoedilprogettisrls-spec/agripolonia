@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agripolonia – Vivaismo Specializzato e Commercio all'Ingrosso | Puglia</title>
+  <meta name="description" content="Agripolonia è un vivaio autorizzato dalla Regione Puglia, specializzato in Fico d'India, piante succulente e commercio all'ingrosso di materiale vivaistico con coltivazione biologica e naturale." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Hero specifico homepage ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--dark);
+    }
+    .hero-slider {
+      position: absolute;
+      inset: 0;
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+    .hero-slide.active { opacity: 0.5; }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15,20,8,0.92) 0%, rgba(40,55,20,0.78) 45%, rgba(100,45,5,0.55) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      padding-top: 100px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,114,26,0.2);
+      border: 1px solid rgba(232,114,26,0.4);
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 50px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 6vw, 4.6rem);
+      color: var(--white);
+      line-height: 1.12;
+      margin-bottom: 22px;
+      font-weight: 700;
+    }
+    .hero-title span {
+      background: var(--gradient-warm);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 560px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      background: var(--olive-light);
+      border-radius: 50%;
+    }
+    .hero-img-aside {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 42%;
+      z-index: 1;
+      clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
+      overflow: hidden;
+    }
+    .hero-img-aside img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .scroll-arrow {
+      width: 2px; height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5));
+      animation: scrollAnim 2s ease infinite;
+    }
+    @keyframes scrollAnim {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ── Specializations Strip ── */
+    .spec-strip {
+      background: var(--gradient-green);
+      padding: 28px 0;
+    }
+    .spec-strip-inner {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .spec-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+    }
+    .spec-item .icon { font-size: 1.6rem; }
+    .spec-item span { font-weight: 600; font-size: 0.95rem; }
+
+    /* ── About snippet ── */
+    .about-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-images {
+      position: relative;
+      height: 500px;
+    }
+    .about-img-main {
+      position: absolute;
+      left: 0; top: 0;
+      width: 75%;
+      height: 80%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .about-img-accent {
+      position: absolute;
+      right: 0; bottom: 0;
+      width: 55%;
+      height: 60%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 6px solid var(--cream);
+    }
+    .about-img-main img,
+    .about-img-accent img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .about-badge {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--gradient-warm);
+      color: var(--white);
+      border-radius: 50%;
+      width: 100px; height: 100px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      box-shadow: var(--shadow-glow);
+      z-index: 3;
+    }
+    .about-badge .year { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+    .about-badge .label { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.9; }
+    .about-list { list-style: none; margin: 24px 0; }
+    .about-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .about-list li .check {
+      color: var(--olive);
+      font-size: 1.1rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── Products Preview ── */
+    .products-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-md);
+    }
+    .product-card-img {
+      aspect-ratio: 3/2;
+      overflow: hidden;
+      position: relative;
+    }
+    .product-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-card-img img { transform: scale(1.08); }
+    .product-badge {
+      position: absolute;
+      top: 16px; left: 16px;
+      background: var(--gradient-warm);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .product-card-body {
+      padding: 24px;
+    }
+    .product-card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--olive-dark);
+      margin-bottom: 8px;
+    }
+    .product-card-body p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .product-link {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--olive);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .product-link:hover { color: var(--orange); gap: 10px; }
+
+    /* ── Why Choose Us ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* ── Testimonial / quote ── */
+    .mission-quote {
+      background: var(--gradient-green);
+      border-radius: var(--radius);
+      padding: 48px;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .mission-quote::before {
+      content: '"';
+      position: absolute;
+      top: -20px; left: 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 15rem;
+      color: rgba(255,255,255,0.06);
+      line-height: 1;
+    }
+    .mission-quote blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-style: italic;
+      line-height: 1.5;
+      max-width: 720px;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .mission-quote cite {
+      font-size: 0.88rem;
+      opacity: 0.7;
+      font-style: normal;
+      display: block;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-img-aside { display: none; }
+      .about-split { grid-template-columns: 1fr; gap: 40px; }
+      .about-images { height: 380px; }
+      .products-preview-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .products-preview-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .spec-strip-inner { gap: 24px; }
+      .hero-actions { flex-direction: column; }
+      .about-images { height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║                    NAVIGATION                       ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/WhatsApp_Image_2026-07-15_at_09.53.42.jpeg" alt="Agripolonia Logo" />
+      <div class="nav-logo-text">
+        <span class="name">Agripolonia</span>
+        <span class="tagline">Vivaio Autorizzato Puglia</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="chi-siamo.html">Chi Siamo</a></li>
+      <li><a href="prodotti.html">Prodotti</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+      <li class="nav-cta"><a href="contatti.html">Richiedi Preventivo</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║                      HERO                           ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<section class="hero" id="hero">
+  <div class="hero-slider">
+    <div class="hero-slide active" style="background-image:url('images/WhatsApp_Image_2026-07-15_at_09.53.45.jpeg')"></div>
+    <div class="hero-slide" style="background-image:url('images/WhatsApp_Image_2026-08-16_at_12.14.29_1.jpeg')"></div>
+    <div class="hero-slide" style="background-image:url('images/WhatsApp_Image_2026-07-15_at_09.56.45.jpeg')"></div>
+    <div class="hero-slide" style="background-image:url('images/WhatsApp_Image_2026-08-17_at_09.48.18_2.jpeg')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-img-aside">
+    <img src="images/WhatsApp_Image_2026-07-15_at_09.54.42.jpeg" alt="Fico d'India vivaio" />
+  </div>
+
+  <div class="container">
+    <div class="hero-content fade-up">
+      <span class="hero-eyebrow">🌿 Vivaio Autorizzato – Regione Puglia</span>
+      <h1 class="hero-title">
+        Vivaismo Specializzato<br/>e Commercio<br/><span>all'Ingrosso</span>
+      </h1>
+      <p class="hero-sub">
+        Da Agripolonia trovi piante certificate, materiale vivaistico di qualità e frutti coltivati biologicamente in Puglia. Specialisti in Fico d'India e piante succulente.
+      </p>
+      <div class="hero-actions">
+        <a href="prodotti.html" class="btn btn-primary">🌵 Scopri i Prodotti</a>
+        <a href="contatti.html" class="btn btn-outline">📋 Richiedi un Preventivo</a>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge"><div class="dot"></div>Passaporto Fitosanitario</div>
+        <div class="hero-badge"><div class="dot"></div>Fornitura B2B all'Ingrosso</div>
+        <div class="hero-badge"><div class="dot"></div>Varietà Selezionate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scorri</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║              SPECIALIZATIONS STRIP                  ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="spec-strip">
+  <div class="container">
+    <div class="spec-strip-inner">
+      <div class="spec-item"><span class="icon">🌵</span><span>Fichi d'India</span></div>
+      <div class="spec-item"><span class="icon">🍑</span><span>Vendita Frutti</span></div>
+      <div class="spec-item"><span class="icon">🌿</span><span>Succulente &amp; Grasse</span></div>
+      <div class="spec-item"><span class="icon">🍎</span><span>Frutticolo &amp; Ornamentale</span></div>
+      <div class="spec-item"><span class="icon">📦</span><span>Ingrosso Vivaistico</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║                   CHI SIAMO (snippet)               ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<section class="section">
+  <div class="container">
+    <div class="about-split">
+      <div class="about-images reveal">
+        <div class="about-img-main">
+          <img src="images/WhatsApp_Image_2026-07-15_at_09.55.04.jpeg" alt="Campo coltivazioni Agripolonia" />
+        </div>
+        <div class="about-img-accent">
+          <img src="images/WhatsApp_Image_2026-07-15_at_09.54.33.jpeg" alt="Pale di fico d'India" />
+        </div>
+        <div class="about-badge">
+          <span class="year">2013</span>
+          <span class="label">Fondati</span>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <span class="tag tag-green">Chi Siamo</span>
+        <h2 class="section-title">Radici nell'agricoltura,<br/>visione nel futuro</h2>
+        <p class="section-sub">
+          Agripolonia SRLS nasce come evoluzione della precedente cooperativa agricola (2013) ed è oggi un <strong>vivaio ufficialmente riconosciuto dalla Regione Puglia</strong>, con coltivazione biologica e naturale, certificazioni e passaporto fitosanitario.
+        </p>
+        <ul class="about-list">
+          <li><span class="check">✅</span> Coltivazione biologica e naturale di Fico d'India</li>
+          <li><span class="check">✅</span> Vivaio autorizzato con passaporto fitosanitario certificato</li>
+          <li><span class="check">✅</span> Fornitura di materia prima vegetale per impianti biogas di terzi</li>
+          <li><span class="check">✅</span> Piantine certificate a foglia singola o doppia foglia</li>
+          <li><span class="check">✅</span> Vendita del frutto e piante finite pronte per la vendita</li>
+        </ul>
+        <a href="chi-siamo.html" class="btn btn-green">Scopri la nostra storia →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║                      STATS BAR                      ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Biologico</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-num">2013</div>
+        <div class="stat-label">Esperienza Vivaistica</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Produzione Certificata</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-num">B2B</div>
+        <div class="stat-label">Fornitura Ingrosso Diretta</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║               PRODOTTO IN EVIDENZA                  ║ -->
+<!-- ║             (Fico d'India – speciale)               ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="highlight-box reveal">
+      <div class="highlight-content">
+        <span class="tag">⭐ Prodotto di Punta</span>
+        <h2>Fico d'India<br/>Piantine e Frutti Bio</h2>
+        <p>
+          Offriamo piantine di Fico d'India certificate a foglia singola (una pala) o doppia foglia (due pale) e frutti freschi coltivati in modo del tutto naturale. 
+          Siamo inoltre pronti a fornire pale fresche (cladodi) di alta qualità come materia prima vegetale per il fabbisogno di impianti di biogas di terzi.
+        </p>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <a href="prodotti.html#fichi-india" class="btn btn-primary">🌵 Scopri la Scheda</a>
+          <a href="contatti.html" class="btn btn-outline" style="color:rgba(255,255,255,0.85);border-color:rgba(255,255,255,0.4);">📞 Richiedi Info</a>
+        </div>
+      </div>
+      <div class="highlight-img">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.48.jpeg" alt="Fico d'India cladodi biogas" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║               PREVIEW PRODOTTI                      ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center; max-width:620px; margin:0 auto 56px;">
+      <span class="tag tag-green">Le Nostre Specializzazioni</span>
+      <h2 class="section-title">I Nostri Prodotti</h2>
+      <p class="section-sub">Dalle piantine certificate al materiale di propagazione, offriamo soluzioni complete per vivai, aziende agricole e impianti di biogas.</p>
+    </div>
+
+    <div class="products-preview-grid">
+      <!-- Card 1: Fico d'India -->
+      <div class="product-card reveal">
+        <div class="product-card-img">
+          <img src="images/WhatsApp_Image_2026-07-15_at_09.54.35.jpeg" alt="Fico d'India pale" />
+          <span class="product-badge">⭐ Best Seller</span>
+        </div>
+        <div class="product-card-body">
+          <h3>🌵 Fico d'India</h3>
+          <p>Piantine certificate (foglia singola o doppia), frutti saporiti coltivati al sole di Puglia e fornitura di pale per impianti di biogas di terzi.</p>
+          <a href="prodotti.html#fichi-india" class="product-link">Scopri di più →</a>
+        </div>
+      </div>
+
+      <!-- Card 2: Succulente -->
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-card-img">
+          <img src="images/WhatsApp_Image_2026-07-15_at_09.54.37.jpeg" alt="Piante succulente e grasse" />
+          <span class="product-badge" style="background:var(--gradient-green)">🌿 Vivaio</span>
+        </div>
+        <div class="product-card-body">
+          <h3>🌿 Succulente &amp; Grasse</h3>
+          <p>Ampia selezione di piante grasse e succulente per il mercato ornamentale, retail e all'ingrosso per rivenditori e garden center.</p>
+          <a href="prodotti.html#succulente" class="product-link">Scopri di più →</a>
+        </div>
+      </div>
+
+      <!-- Card 3: Ingrosso -->
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-card-img">
+          <img src="images/WhatsApp_Image_2026-07-15_at_09.56.451.jpeg" alt="Materiale vivaistico ingrosso" />
+          <span class="product-badge" style="background:linear-gradient(135deg,#5c6e2e,#a0714f)">📦 B2B</span>
+        </div>
+        <div class="product-card-body">
+          <h3>📦 Ingrosso &amp; B2B</h3>
+          <p>Fornitura all'ingrosso di piante finite e materiale di propagazione. Contratti di fornitura garantiti con prezzi fissi per aziende del settore.</p>
+          <a href="prodotti.html#ingrosso" class="product-link">Scopri di più →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║               GALLERIA IMMAGINI                     ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<section class="section section-alt">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:48px;">
+      <span class="tag">Galleria</span>
+      <h2 class="section-title">Le Nostre Coltivazioni</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item wide tall" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.53.50.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.50.jpeg" alt="Piantagione fico d'India" />
+        <div class="gallery-overlay"><span>Piantagione Fico d'India</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.53.51.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.51.jpeg" alt="Pale cladodi" />
+        <div class="gallery-overlay"><span>Cladodi Freschi</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.53.52.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.53.52.jpeg" alt="Campo coltivazioni" />
+        <div class="gallery-overlay"><span>Campo Coltivazioni</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.34.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.34.jpeg" alt="Vivaio" />
+        <div class="gallery-overlay"><span>Struttura Vivaistica</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.54.491.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.54.491.jpeg" alt="Coltivazione biologica" />
+        <div class="gallery-overlay"><span>Coltivazione Biologica</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.55.021.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.55.021.jpeg" alt="Piantine" />
+        <div class="gallery-overlay"><span>Piantine Certificate</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-07-15_at_09.55.03.jpeg')">
+        <img src="images/WhatsApp_Image_2026-07-15_at_09.55.03.jpeg" alt="Vivai Puglia" />
+        <div class="gallery-overlay"><span>Vivai Puglia</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-08-25_at_10.26.02.jpeg')">
+        <img src="images/WhatsApp_Image_2026-08-25_at_10.26.02.jpeg" alt="Coltivazione vivaistica" />
+        <div class="gallery-overlay"><span>Coltivazione Vivaistica</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/WhatsApp_Image_2026-08-25_at_10.26.02_2.jpeg')">
+        <img src="images/WhatsApp_Image_2026-08-25_at_10.26.02_2.jpeg" alt="Fico d'India e Natura" />
+        <div class="gallery-overlay"><span>Fico d'India e Natura</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║               PERCHÉ SCEGLIERCI                     ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center; max-width:600px; margin:0 auto 56px;">
+      <span class="tag tag-green">I Nostri Punti di Forza</span>
+      <h2 class="section-title">Perché Scegliere Agripolonia</h2>
+    </div>
+    <div class="why-grid">
+      <div class="feature-box reveal">
+        <span class="feature-icon">🏅</span>
+        <h3 class="feature-title">Vivaio Autorizzato</h3>
+        <p class="feature-text">Riconoscimento ufficiale Regione Puglia con passaporto fitosanitario su tutte le piantine. Qualità e tracciabilità garantita.</p>
+      </div>
+      <div class="feature-box reveal reveal-delay-1">
+        <span class="feature-icon">📅</span>
+        <h3 class="feature-title">Disponibilità Annuale</h3>
+        <p class="feature-text">Il Fico d'India è reperibile tutto l'anno, eliminando i problemi di stagionalità tipici di altre matrici vegetali.</p>
+      </div>
+      <div class="feature-box reveal reveal-delay-2">
+        <span class="feature-icon">🌿</span>
+        <h3 class="feature-title">Coltivazione Biologica</h3>
+        <p class="feature-text">Produciamo in modo naturale e biologico, rispettando l'equilibrio della terra pugliese per offrire prodotti sani e resistenti.</p>
+      </div>
+      <div class="feature-box reveal reveal-delay-3">
+        <span class="feature-icon">🔬</span>
+        <h3 class="feature-title">Alta Qualità Metanigena</h3>
+        <p class="feature-text">Le pale di Fico d'India hanno un eccellente potere metanigeno. Non producono cattivi odori durante la digestione anaerobica.</p>
+      </div>
+      <div class="feature-box reveal reveal-delay-1">
+        <span class="feature-icon">🤝</span>
+        <h3 class="feature-title">Assistenza Tecnica</h3>
+        <p class="feature-text">Supporto tecnico specializzato per la scelta delle varietà, le tecniche di coltivazione e la gestione della filiera.</p>
+      </div>
+      <div class="feature-box reveal reveal-delay-2">
+        <span class="feature-icon">🌍</span>
+        <h3 class="feature-title">Impatto Sostenibile</h3>
+        <p class="feature-text">Valorizzazione dei terreni marginali, riduzione delle emissioni di CO₂ e contributo alla transizione energetica rinnovabile.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║               MISSION QUOTE                         ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="mission-quote reveal">
+      <blockquote>
+        "Un modello di coltivazione biologica e naturale che valorizza il territorio pugliese, fornendo frutti d'eccellenza, piantine certificate e materia prima per impianti biogas."
+      </blockquote>
+      <cite>— Michele Marangi, Agripolonia / Eco Edil Progetti Srl</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║                      FOOTER                         ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">Agripolonia</div>
+        <p>Vivaio autorizzato dalla Regione Puglia specializzato in Fico d'India, piante succulente e commercio all'ingrosso di materiale vivaistico. Coltivazione biologica, naturale e fornitura di materia prima per biogas di terzi.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigazione</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chi-siamo.html">Chi Siamo</a></li>
+          <li><a href="prodotti.html">Prodotti</a></li>
+          <li><a href="contatti.html">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Prodotti</h5>
+        <ul>
+          <li><a href="prodotti.html#fichi-india">Fico d'India</a></li>
+          <li><a href="prodotti.html#succulente">Succulente</a></li>
+          <li><a href="prodotti.html#frutti">Vendita Frutti</a></li>
+          <li><a href="prodotti.html#ingrosso">Ingrosso B2B</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="tel:+39">📞 Telefono</a></li>
+          <li><a href="https://wa.me/39" target="_blank">💬 WhatsApp Business</a></li>
+          <li><a href="mailto:agripaulownia61@gmail.com">✉️ Email</a></li>
+          <li><a href="contatti.html">📍 Dove Siamo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Agripolonia SRLS – Tutti i diritti riservati – P.IVA 03420760732 – PEC: agripaulownia@pec.it</span>
+      <span>Vivaio Autorizzato Regione Puglia</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/39" class="whatsapp-float" target="_blank" title="Contattaci su WhatsApp">💬</a>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="Immagine ingrandita" />
+</div>
+
+<script>
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Mobile nav
+  function toggleNav() {
+    const links = document.getElementById('navLinks');
+    links.classList.toggle('open');
+  }
+
+  // Hero slider
+  const slides = document.querySelectorAll('.hero-slide');
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 4500);
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lightboxImg').src = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>

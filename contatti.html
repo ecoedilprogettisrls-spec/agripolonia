@@ -1,0 +1,553 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contatti – Agripolonia | Vivaio Puglia | Richiedi Preventivo</title>
+  <meta name="description" content="Contatta Agripolonia per preventivi, piantine di Fico d'India a foglia singola o doppia, frutti biologici, piante succulente e fornitura pale per biogas." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Contact layout ── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── Map placeholder ── */
+    .map-container {
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 380px;
+      background: var(--cream-dark);
+      position: relative;
+      margin-top: 32px;
+      box-shadow: var(--shadow-soft);
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ── Hours grid ── */
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .hours-item {
+      background: var(--cream);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+    .hours-item .day {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--olive-dark);
+      margin-bottom: 4px;
+    }
+    .hours-item .time {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .hours-item.closed .time { color: var(--red-cactus); }
+
+    /* ── Quick contact buttons ── */
+    .quick-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .quick-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-soft);
+      text-decoration: none;
+      transition: var(--transition);
+      border-left: 4px solid var(--olive);
+    }
+    .quick-btn:hover {
+      transform: translateX(8px);
+      box-shadow: var(--shadow-md);
+      border-left-color: var(--orange);
+    }
+    .quick-btn .icon {
+      font-size: 2rem;
+      width: 52px; height: 52px;
+      background: var(--cream);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .quick-btn .info .label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .quick-btn .info .value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--olive-dark);
+    }
+    .quick-btn .info .sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Form success message ── */
+    .form-success {
+      display: none;
+      background: var(--gradient-green);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .form-success.show { display: block; }
+
+    /* ── Info bar top ── */
+    .info-bar {
+      background: var(--gradient-green);
+      color: var(--white);
+      padding: 12px 0;
+      font-size: 0.82rem;
+    }
+    .info-bar .container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .info-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 1024px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .hours-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .hours-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── INFO BAR ── -->
+<div class="info-bar">
+  <div class="container">
+    <div class="info-bar-item">📍 Taranto (Puglia), Italia</div>
+    <div class="info-bar-item">💬 WhatsApp Business Attivo</div>
+    <div class="info-bar-item">⏰ Lun–Ven 9:00-13:00 e 15:00-19:00</div>
+  </div>
+</div>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/WhatsApp_Image_2026-07-15_at_09.53.42.jpeg" alt="Agripolonia" />
+      <div class="nav-logo-text">
+        <span class="name">Agripolonia</span>
+        <span class="tagline">Vivaio Autorizzato Puglia</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi Siamo</a></li>
+      <li><a href="prodotti.html">Prodotti</a></li>
+      <li><a href="contatti.html" class="active">Contatti</a></li>
+      <li class="nav-cta"><a href="#form-contatto">Richiedi Preventivo</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('images/WhatsApp_Image_2026-07-15_at_09.56.451.jpeg')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep">›</span>
+        <span class="current">Contatti</span>
+      </div>
+      <h1>Contattaci</h1>
+      <p>Siamo pronti ad ascoltarti. Per preventivi, acquisto piantine (foglia singola/doppia) o frutti freschi, compila il modulo o scrivici via WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── MAIN CONTACT SECTION ── -->
+<section class="section" id="form-contatto">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- LEFT: FORM -->
+      <div class="reveal">
+        <span class="tag tag-green">Modulo di Contatto</span>
+        <h2 class="section-title" style="margin-bottom:8px;">Inviaci un Messaggio</h2>
+        <p style="color:var(--text-muted); margin-bottom:32px; font-size:0.92rem;">Compila il modulo per richiedere informazioni o un preventivo di fornitura. Rispondiamo entro 24 ore lavorative.</p>
+
+        <div class="contact-form">
+          <form id="contactForm" onsubmit="submitForm(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="nome">Nome e Cognome *</label>
+                <input type="text" id="nome" name="nome" placeholder="Mario Rossi" required />
+              </div>
+              <div class="form-group">
+                <label for="azienda">Azienda / Ragione Sociale</label>
+                <input type="text" id="azienda" name="azienda" placeholder="Nome Azienda Srl" />
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="info@email.it" required />
+              </div>
+              <div class="form-group">
+                <label for="telefono">Telefono / WhatsApp</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="+39 333 000 0000" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="interesse">Sono interessato a *</label>
+              <select id="interesse" name="interesse" required>
+                <option value="">-- Seleziona un'opzione --</option>
+                <option value="fichi-singola">🌵 Piantina Fico d'India - Foglia Singola (1 pala)</option>
+                <option value="fichi-doppia">🌵 Piantina Fico d'India - Doppia Foglia (2 pale)</option>
+                <option value="fichi-frutti">🍑 Vendita Frutti freschi di Fico d'India</option>
+                <option value="fichi-biogas">🔋 Fornitura pale (cladodi) per Impianti Biogas</option>
+                <option value="succulente-ingrosso">🌿 Succulente / Piante Grasse all'Ingrosso</option>
+                <option value="materiale-propagazione">🌱 Materiale Vivaistico / Talee</option>
+                <option value="altro">❓ Altro / Richiesta Informazioni</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="messaggio">Messaggio *</label>
+              <textarea id="messaggio" name="messaggio" placeholder="Descrivi la tua richiesta: numero di piantine o chili di frutti desiderati, destinazione o dettagli del tuo impianto di biogas..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer; text-transform:none; font-weight:400; font-size:0.82rem; color:var(--text-muted);">
+                <input type="checkbox" required style="width:18px; height:18px; margin-top:1px; flex-shrink:0; accent-color:var(--olive);" />
+                Ho letto e accetto la <a href="#" style="color:var(--olive); font-weight:600;">Privacy Policy</a>. Acconsento al trattamento dei dati personali.
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; font-size:1rem; padding:16px;">
+              📨 Invia Richiesta
+            </button>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <div style="font-size:2.5rem; margin-bottom:8px;">✅</div>
+            <div style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:6px;">Messaggio Inviato!</div>
+            <p style="font-size:0.9rem; opacity:0.85;">Grazie per averci contattato. Ti risponderemo entro 24 ore lavorative. Se hai bisogno di una risposta immediata, puoi contattarci direttamente via WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: CONTACTS + HOURS -->
+      <div class="reveal reveal-delay-2">
+        <span class="tag">Contatti Diretti</span>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--olive-dark); margin-bottom:24px; margin-top:8px;">Raggiungi l'Azienda</h3>
+
+        <div class="quick-contacts" style="margin-bottom:36px;">
+          <a href="https://wa.me/39" class="quick-btn" target="_blank" id="whatsapp-link">
+            <div class="icon" style="background:#d4f5e0;">💬</div>
+            <div class="info">
+              <div class="label">WhatsApp Business</div>
+              <div class="value">Risposta Rapida</div>
+              <div class="sub">Disponibile Lun–Ven • Risposta rapida</div>
+            </div>
+          </a>
+
+          <a href="tel:+39" class="quick-btn" id="phone-link">
+            <div class="icon">📞</div>
+            <div class="info">
+              <div class="label">Telefono Ufficio</div>
+              <div class="value">Chiama Agripolonia</div>
+              <div class="sub">Lun–Ven 9:00-13:00 e 15:00-19:00</div>
+            </div>
+          </a>
+
+          <a href="mailto:agripaulownia61@gmail.com" class="quick-btn" id="email-link">
+            <div class="icon">✉️</div>
+            <div class="info">
+              <div class="label">Email Commerciale</div>
+              <div class="value">agripaulownia61@gmail.com</div>
+              <div class="sub">Per preventivi e informazioni commerciali</div>
+            </div>
+          </a>
+
+          <a href="mailto:agripaulownia@pec.it" class="quick-btn" id="pec-link">
+            <div class="icon" style="background:var(--cream-dark);">🔒</div>
+            <div class="info">
+              <div class="label">PEC – Posta Certificata</div>
+              <div class="value">agripaulownia@pec.it</div>
+              <div class="sub">Per comunicazioni ufficiali e contratti B2B</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Sede -->
+        <div style="margin-bottom:32px;">
+          <h4 style="font-weight:700; color:var(--olive-dark); margin-bottom:14px; font-size:1rem;">📍 Sede dell'Ufficio</h4>
+          <div class="contact-info-card" style="margin-bottom:0;">
+            <div class="contact-icon">📍</div>
+            <div class="contact-info-text">
+              <h4>Agripolonia SRLS</h4>
+              <p>Via Nicolò Paganini 6<br/>
+              74016 Massafra (TA)<br/>
+              Puglia, Italia<br/>
+              <em style="font-size:0.8rem; color:var(--terra);">Si prega di fissare un appuntamento prima della visita</em></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orari -->
+        <div>
+          <h4 style="font-weight:700; color:var(--olive-dark); margin-bottom:16px; font-size:1rem;">⏰ Orari di Apertura</h4>
+          <div class="hours-grid">
+            <div class="hours-item">
+              <div class="day">Lunedì</div>
+              <div class="time">9:00–13:00 | 15:00–19:00</div>
+            </div>
+            <div class="hours-item">
+              <div class="day">Martedì</div>
+              <div class="time">9:00–13:00 | 15:00–19:00</div>
+            </div>
+            <div class="hours-item">
+              <div class="day">Mercoledì</div>
+              <div class="time">9:00–13:00 | 15:00–19:00</div>
+            </div>
+            <div class="hours-item">
+              <div class="day">Giovedì</div>
+              <div class="time">9:00–13:00 | 15:00–19:00</div>
+            </div>
+            <div class="hours-item">
+              <div class="day">Venerdì</div>
+              <div class="time">9:00–13:00 | 15:00–19:00</div>
+            </div>
+            <div class="hours-item closed">
+              <div class="day">Sabato</div>
+              <div class="time">Chiuso</div>
+            </div>
+            <div class="hours-item closed">
+              <div class="day">Domenica</div>
+              <div class="time">Chiuso</div>
+            </div>
+            <div class="hours-item" style="background:rgba(232,114,26,0.08); border:1px solid rgba(232,114,26,0.2);">
+              <div class="day" style="color:var(--orange);">Visite / B2B</div>
+              <div class="time">Su appuntamento</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MAP SECTION ── -->
+<section class="section section-alt">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:36px;" class="reveal">
+      <span class="tag tag-green">Dove Siamo</span>
+      <h2 class="section-title">La Nostra Sede a Massafra</h2>
+      <p class="section-sub">La sede dell'ufficio si trova a Massafra in Provincia di Taranto (TA). Consulta la mappa interattiva o apri l'applicazione Google Maps.</p>
+    </div>
+    <div class="map-container reveal">
+      <!-- Mappa Google Maps integrata con indirizzo reale -->
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.2370617300706!2d17.114704076326658!3d40.589886071412574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1346f0477b8971f1%3A0xc3412501a1c93a8d!2sVia%20Nicol%C3%B2%20Paganini%2C%206%2C%2074016%20Massafra%20TA!5e0!3m2!1sit!2sit!4v1717283456789!5m2!1sit!2sit" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div style="text-align:center; margin-top:20px;">
+      <a href="https://maps.app.goo.gl/ULooT4WFDzWMUVPG8" target="_blank" class="btn btn-primary">
+        🗺️ Apri su Google Maps
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ RAPIDE ── -->
+<section class="section">
+  <div class="container">
+    <div style="max-width:780px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:48px;" class="reveal">
+        <span class="tag">Domande Frequenti</span>
+        <h2 class="section-title">FAQ – Risposte Rapide</h2>
+      </div>
+      <div id="faqContainer">
+        <div class="faq-item reveal" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>Come posso acquistare piantine di Fico d'India?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>Puoi contattarci tramite il modulo, per email o per telefono WhatsApp. Forniamo piantine certificate a foglia singola (una pala) o doppia foglia (due pale), pronte per essere messe a dimora. Tutte le nostre piantine sono dotate di regolare passaporto fitosanitario europeo.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>In che periodo sono disponibili i frutti freschi?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>I frutti freschi di fico d'india biologico vengono raccolti e venduti nel loro periodo naturale di maturazione, che in Puglia va tipicamente da fine agosto fino a ottobre/novembre. È consigliabile prenotare le quantità desiderate in anticipo.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-2" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>Potete fornire biomassa (pale) per impianti di biogas?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>Sì. Forniamo pale e cladodi freschi coltivati in modo del tutto biologico e naturale a impianti di biogas di terzi. Le pale hanno un ottimo potere metanigeno, non creano cattivi odori durante lo stoccaggio e garantiscono continuità di approvvigionamento su tutto l'arco dell'anno.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-3" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <span>Quali sono i vostri orari per le visite B2B?</span>
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>Il nostro ufficio è operativo dal lunedì al venerdì dalle 9:00 alle 13:00 e dalle 15:00 alle 19:00. Il sabato e la domenica siamo chiusi. Per visite in vivaio di operatori B2B ed aziende, si richiede obbligatoriamente di concordare preventivamente un appuntamento.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="name">Agripolonia</div>
+        <p>Vivaio autorizzato dalla Regione Puglia. Fico d'India, succulente e commercio all'ingrosso. Coltivazioni biologiche e naturali, fornitura di materia prima per biogas.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigazione</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chi-siamo.html">Chi Siamo</a></li>
+          <li><a href="prodotti.html">Prodotti</a></li>
+          <li><a href="contatti.html">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Prodotti</h5>
+        <ul>
+          <li><a href="prodotti.html#fichi-india">🌵 Fico d'India</a></li>
+          <li><a href="prodotti.html#succulente">🌿 Succulente</a></li>
+          <li><a href="prodotti.html#ingrosso">📦 Ingrosso B2B</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contatti Rapidi</h5>
+        <ul>
+          <li><a href="tel:+39">📞 Telefono</a></li>
+          <li><a href="https://wa.me/39" target="_blank">💬 WhatsApp Business</a></li>
+          <li><a href="mailto:agripaulownia61@gmail.com">✉️ agripaulownia61@gmail.com</a></li>
+          <li><a href="mailto:agripaulownia@pec.it">🔒 PEC</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Agripolonia SRLS – Tutti i diritti riservati – P.IVA 03420760732 – PEC: agripaulownia@pec.it</span>
+      <span>Vivaio Autorizzato Regione Puglia</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/39" class="whatsapp-float" target="_blank">💬</a>
+
+<style>
+  /* FAQ Accordion */
+  .faq-item {
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .faq-item:hover { box-shadow: var(--shadow-md); }
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--olive-dark);
+  }
+  .faq-arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.7rem;
+    color: var(--orange);
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .faq-answer p {
+    padding: 0 24px 20px;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .faq-item.open .faq-answer { max-height: 200px; }
+  .faq-item.open { border-left: 4px solid var(--orange); }
+
+  @media (max-width: 768px) {
+    .hours-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+  function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  function submitForm(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+    form.style.display = 'none';
+    success.classList.add('show');
+  }
+
+  function toggleFaq(item) {
+    const allItems = document.querySelectorAll('.faq-item');
+    allItems.forEach(i => { if(i !== item) i.classList.remove('open'); });
+    item.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
