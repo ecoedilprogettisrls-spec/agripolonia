@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -535,12 +535,54 @@
   }, { threshold: 0.1 });
   reveals.forEach(el => obs.observe(el));
 
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
     const form = document.getElementById('contactForm');
+    const submitBtn = form.querySelector('button[type="submit"]');
     const success = document.getElementById('formSuccess');
-    form.style.display = 'none';
-    success.classList.add('show');
+
+    const originalBtnContent = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '⏳ Invio in corso...';
+
+    const formData = new FormData(form);
+    const data = {
+      "Nome e Cognome": formData.get('nome'),
+      "Azienda": formData.get('azienda') || 'Non specificata',
+      "Email": formData.get('email'),
+      "Telefono": formData.get('telefono') || 'Non specificato',
+      "Interesse": formData.get('interesse'),
+      "Messaggio": formData.get('messaggio'),
+      "_subject": "Nuova richiesta dal sito web Agripolonia - " + formData.get('nome'),
+      "_captcha": "false",
+      "_template": "table"
+    };
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/agripaulownia61@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        success.classList.add('show');
+      } else {
+        form.action = 'https://formsubmit.co/agripaulownia61@gmail.com';
+        form.method = 'POST';
+        form.removeAttribute('onsubmit');
+        form.submit();
+      }
+    } catch (err) {
+      form.action = 'https://formsubmit.co/agripaulownia61@gmail.com';
+      form.method = 'POST';
+      form.removeAttribute('onsubmit');
+      form.submit();
+    }
   }
 
   function toggleFaq(item) {
