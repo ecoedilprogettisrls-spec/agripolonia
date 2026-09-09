@@ -1,6 +1,6 @@
-# Agripolonia – Sito Web
+# Agripaulownia – Sito Web
 
-Sito web ufficiale di **Agripolonia SRLS**, vivaio autorizzato dalla Regione Puglia specializzato in:
+Sito web ufficiale di **Agripaulownia SRLS**, vivaio autorizzato dalla Regione Puglia specializzato in:
 - 🌵 Fico d'India (piantine e pale per biogas)
 - 🌳 Paulownia
 - 🪴 Succulente e Piante Grasse
@@ -9,7 +9,7 @@ Sito web ufficiale di **Agripolonia SRLS**, vivaio autorizzato dalla Regione Pug
 ## Struttura del Sito
 
 ```
-agripolonia/
+agripaulownia/
 ├── index.html        → Home Page
 ├── chi-siamo.html    → Chi Siamo
 ├── prodotti.html     → I Nostri Prodotti
@@ -20,11 +20,11 @@ agripolonia/
 
 ## Pubblicazione su GitHub Pages
 
-1. Crea un nuovo repository su GitHub (es. `agripolonia`)
+1. Crea un nuovo repository su GitHub (es. `agripaulownia`)
 2. Carica tutti i file di questa cartella nel repository
 3. Vai su **Settings → Pages**
 4. Seleziona **Branch: main** e **/ (root)** come cartella
-5. Salva – il sito sarà online su `https://tuo-username.github.io/agripolonia`
+5. Salva – il sito sarà online su `https://tuo-username.github.io/agripaulownia`
 
 ## Personalizzazioni da Completare
 
@@ -37,6 +37,7 @@ agripolonia/
 
 ## Crediti
 
-Progetto sviluppato per **Agripolonia SRLS** – Vivaio Puglia  
+Progetto sviluppato per **Agripaulownia SRLS** – Vivaio Puglia  
 Design: Palette naturale (Verde Oliva, Terra, Arancio Fico d'India)  
 Font: Outfit + Playfair Display (Google Fonts)
+
